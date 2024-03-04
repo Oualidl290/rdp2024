@@ -28,4 +28,6 @@ jobs:
       run: |
         Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
     - name: Create Tunnel
-      run: .\ngrok\ngrok.exe tcp 3389
+      run: |
+        echo "web_addr: localhost:4040" | Out-File -FilePath .\ngrok\ngrok.yml -Encoding utf8
+        .\ngrok\ngrok.exe tcp 3389 --config .\ngrok\ngrok.yml
